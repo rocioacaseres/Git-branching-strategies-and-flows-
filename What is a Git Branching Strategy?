@@ -1,0 +1,25 @@
+BRANCHING STRATEGIES 
+
+1. Definition and main functions
+
+It is a strategy a software development team employs when writing, merging, and shipping code in the context of a version control system like Git. It can also by defined as a set of rules that developers use about how to interact with a shared code. In other words, it enables teams to work in parallel to achieve faster releases and fewer conflicts by creating a clear process when making changes to source control.
+Branches are independent lines of code that branch off the master branch, allowing developers to work independently before merging their changes back to the code base.
+The biggest advantage of a Git branch is that it’s ‘lightweight’, meaning that data consists of a series of snapshots so with every commit you make, Git takes a picture of what your files look like at that moment and stores a reference to that snapshot. This means that these branches aren’t just copies of the file system but simply a pointer to the latest commit. 
+Meanwhile, other VCS tools store information as a list of file-based changes which may slow things down and use up significant space. 
+
+2. Types of Git branching strategies
+
+2.1. GitFlow 
+
+Gitflow gives a set of rules for how to work with individual Git branches by assigning specific roles and defining how they interact. Its distinguishing factor is that, instead of using a single master branch, it uses multiple branches running in parallel to record your project’s unique history.
+There are two types of branches:
+-Master branch: it is fully teasted and should at all times be production-ready. 
+-Develop branch: integration branch for the project's features. It is where tests should be performed. 
+
+An overview of the Github Strategy 
+
+2.2. Github Flow 
+
+2.3. GitLab Flow 
+
+2.4. Trunck-based development
