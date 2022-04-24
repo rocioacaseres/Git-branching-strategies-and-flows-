@@ -12,14 +12,37 @@ Meanwhile, other VCS tools store information as a list of file-based changes whi
 2.1. GitFlow 
 
 Gitflow gives a set of rules for how to work with individual Git branches by assigning specific roles and defining how they interact. Its distinguishing factor is that, instead of using a single master branch, it uses multiple branches running in parallel to record your project’s unique history.
-There are two types of branches:
--Master branch: it is fully teasted and should at all times be production-ready. 
--Develop branch: integration branch for the project's features. It is where tests should be performed. 
+There are five types of branches:
+-Master branch: it is fully tested and should at all times be production-ready. The branch can be tagged at various commits in order to signify different versions or releases of the code, and other branches will be merged into the main branch after they have been sufficiently vetted and tested.
+-Develop branch: the develop branch is created at the start of a project and is maintained throughout the development process, and contains pre-production code with newly developed features that are in the process of being tested. Newly-created features should be based off the develop branch, and then merged back in when ready for testing.
+-Release branch: the release branch should be used when preparing new production releases. Typically, the work being performed on release branches concerns finishing touches and minor bugs specific to releasing new code, with code that should be addressed separately from the main develop branch.
+-Hotfix: In Git flow, the hotfix branch is used to quickly address necessary changes in your main branch. The base of the hotfix branch should be your main branch and should be merged back into both the main and develop branches. Merging the changes from your hotfix branch back into the develop branch is critical to ensure the fix persists the next time the main branch is released.
+-Feature branch:the most common type of branch in the Git flow workflow. It is used when adding new features to your code. When working on a new feature, you will start a feature branch off the develop branch, and then merge your changes back into the develop branch when the feature is completed and properly reviewed.
 
-An overview of the Github Strategy 
+The realese, hotfix and feature branches are supporting branches. 
 
 2.2. Github Flow 
+It is a workflow created to work with Git and Github ir order to allow teams to experiment freely and make deployments regularly.
+If you want to use Github Flow, you have to follow these steps:
+ a. Create a new branch. 
+ The master branch is always deployable. If you want to try something new or experiment, you create a new branch. They give you an environment where you can make changes without affecting the main branch. When your new branch is ready, it can be reviewed, discussed, and merged with the main branch when ready. When you make a new branch, you will (almost always) want to make it from the master branch.
+ b. Make changes and add commits.
+ After the new branch is created, make changes by adding, editing and deleting files. Whenever you reach achivement, add the changes to your branch by commit. Adding commits keeps track of your work. Each commit should have a message explaining what has changed and why. Each commit becomes a part of the history of the branch, and a point you can revert back to if you need to.
+ c. Open a Pull Request. 
+ Pull requests are a key part of GitHub. A Pull Request notifies people you have changes ready for them to consider or review. You can ask others to review your changes or pull your contribution and merge it into their branch.
+ d. Deploy 
+When the pull request has been reviewed and everything looks good, it is time for the final testing. GitHub allows you to deploy from a branch for final testing in production before merging with the master branch. If any issues arise, you can undo the changes by deploying the master branch into production again.
+ e. Merge 
+After testing, the code can be merged into the master branch. Pull Requests keep records of changes to your code, and if you commented and named changes well, you can go back and understand why changes and decisions were made.
 
 2.3. GitLab Flow 
+GitLab Flow is a simpler alternative to GitFlow and combines feature driven development and feature branches with issue tracking. With GitLab Flow, all features and fixes go to the main branch while enabling production and stable branches. 
+It works with the ‘main’ branch right away. GitLab Flow incorporates a pre-production branch to make bug fixes before merging changes back to main before going to production. Teams can add as many pre-production branches as needed. Essentially, teams practice feature branching, while also maintaining a separate production branch. Whenever the ‘main’ branch is ready to be deployed, users merge it into the production branch and release. GitLab Flow is often used with release branches. Teams that require a public API may need to maintain different versions. Using GitLab Flow, teams can make a v1 branch and a v2 branch that can be maintained individually, which can be helpful if the team identifies a bug during code reviews that goes back to v1.
 
-2.4. Trunck-based development
+The flow starts with the master branch, the pre-production environment branch, and the production environment branch. All these branches should be protected, for developers do not commit directly to them.
+In the same way as in GitHub flow, to start a new development demand, you must create a specific branch for this demand and periodically perform pushes for branch of the same name to the remote repository.
+Upon finalizing the demand, a Merge Request for the master is requested. A code review can be opened in GitLab and a discussion about the change can be started
+When approved, the change must be integrated into the master branch.
+A merge must then be made between the master branch and the pre-production environment branch. A pipeline should be executed to build the project and run the automated tests.
+When passing in the automated tests, a merge must be done for the production branch. A pipeline should be executed again, to run the automated tests one more time and deploy to production.
+A tag must be created to mark a stable version of the system and the feature branch must be removed to make the repository more organized.
